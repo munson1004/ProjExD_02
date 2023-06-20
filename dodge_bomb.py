@@ -12,8 +12,11 @@ delta ={
     pg.K_RIGHT: (+5,0),
 }
 
-
-
+"""
+    オブジェクトが画面内か画面外かを判定し、真偽値タプルを返す
+    引数 obj: オブジェクト（爆弾、こうかとん）SurfaceのRectオブジェクト
+    戻り値: 横方向, 縦方向のはみ出し判定結果（画面内:True/画面外:False）
+"""
 def check_bound(rect: pg.Rect) -> tuple[bool,bool]:
     yoko,tate =True,True
     if rect.left < 0 or WIDTH < rect.right:
