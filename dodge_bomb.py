@@ -32,9 +32,11 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
         screen.blit(bk_img,bk_rct)
+        vx,vy = +5,+5
+        bk_rct.move_ip(vx,vy)
         pg.display.update()
         tmr += 1
-        clock.tick(10)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
