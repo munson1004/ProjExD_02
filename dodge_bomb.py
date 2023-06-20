@@ -11,6 +11,9 @@ delta ={
     pg.K_LEFT: (-5,0),
     pg.K_RIGHT: (+5,0),
 }
+
+
+
 def check_bound(rect: pg.Rect) -> tuple[bool,bool]:
     yoko,tate =True,True
     if rect.left < 0 or WIDTH < rect.right:
@@ -32,6 +35,31 @@ def main():
     bk_img = pg.Surface((20,20))
     pg.draw.circle(bk_img,(255,0,0),(10,10),10)
     
+    kakudo = {
+    (-5,-5):pg.transform.rotozoom(kk_img,-45,1.0),
+    (-5,0):pg.transform.rotozoom(kk_img,0,1.0) ,
+    (-5,+5):pg.transform.rotozoom(kk_img,45,1.0),
+
+    (0,0):pg.transform.flip(kk_img,True,False) ,
+    (0,0):pg.transform.rotozoom(kk_img,0,1.0) ,
+
+    (0,-5):pg.transform.flip(kk_img,True,False) ,
+    (0,-5):pg.transform.rotozoom(kk_img,-90,1.0) ,
+
+    (+5,-5):pg.transform.flip(kk_img,True,False),
+    (+5,-5):pg.transform.rotozoom(kk_img,-135,1.0),
+
+    (+5,0):pg.transform.flip(kk_img,True,False) ,
+    #(+5,0):pg.transform.rotozoom(kk_img,0,1.0) ,
+
+    (+5,+5):pg.transform.flip(kk_img,True,False) ,
+    (+5,+5):pg.transform.rotozoom(kk_img,135,1.0) ,
+
+    (0,+5):pg.transform.flip(kk_img,True,False) ,
+    (0,+5):pg.transform.rotozoom(kk_img,90,1.0) ,
+
+    }
+
     x = random.randint(0,WIDTH)
     y = random.randint(0,HEIGHT)
     bk_rct = bk_img.get_rect()
@@ -60,11 +88,11 @@ def main():
         if check_bound(kk_rct) != (True,True):
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
 
-
+        
 
         screen.blit(bg_img, [0, 0])
-        #screen.blit(kk_img, [900, 400])
-        screen.blit(kk_img,kk_rct)
+        #screen.blit(kk_img,kk_rct)
+        screen.blit(kakudo[tuple(sum_mv)], kk_rct)
         bk_rct.move_ip(vx,vy)
         yoko,tate = check_bound(bk_rct)
         if not yoko:
