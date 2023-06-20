@@ -11,6 +11,14 @@ delta ={
     pg.K_LEFT: (-5,0),
     pg.K_RIGHT: (+5,0),
 }
+def check_bound(rect: pg.Rect) -> tuple[bool,bool]:
+    yoko,tate =True,True
+    if rect.left < 0 or WIDTH < rect.right:
+        yoko=False
+    if rect.top < 0 or HEIGHT < rect.bottom:
+        tate = False
+    return yoko,tate
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -28,6 +36,7 @@ def main():
     y = random.randint(0,HEIGHT)
     bk_rct = bk_img.get_rect()
     bk_rct.center = x , y
+    vx,vy=+5,+5
     bk_img.set_colorkey((0,0,0))
 
 
@@ -44,14 +53,22 @@ def main():
                 sum_mv[0]+=mv[0]
                 sum_mv[1]+=mv[1]
         kk_rct.move_ip(sum_mv)
+        if check_bound(kk_rct) != (True,True):
+            kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
 
 
 
         screen.blit(bg_img, [0, 0])
         #screen.blit(kk_img, [900, 400])
         screen.blit(kk_img,kk_rct)
-        vx,vy = +5,+5
         bk_rct.move_ip(vx,vy)
+        yoko,tate = check_bound(bk_rct)
+        if not yoko:
+            vx *= -1
+        if not tate:
+            vy *= -1
+
+        screen.blit(bk_img,bk_rct)
         pg.display.update()
         tmr += 1
         clock.tick(50)
