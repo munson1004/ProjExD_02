@@ -37,26 +37,21 @@ def main():
     clock = pg.time.Clock()
     bk_img = pg.Surface((20,20))
     pg.draw.circle(bk_img,(255,0,0),(10,10),10)
-    
+    kk_img1 = pg.transform.flip(kk_img,True,False)
     kakudo = {
     (-5,-5):pg.transform.rotozoom(kk_img,-45,1.0),
     (-5,0):pg.transform.rotozoom(kk_img,0,1.0) ,
     (-5,+5):pg.transform.rotozoom(kk_img,45,1.0),
 
-    (0,0):pg.transform.flip(kk_img,True,False) ,
-    (0,0):pg.transform.rotozoom(kk_img,0,1.0) ,
+    
+    (0,0):pg.transform.rotozoom(kk_img1,0,1.0) ,
+    (0,-5):pg.transform.rotozoom(kk_img1,90,1.0) ,
 
-    (0,-5):pg.transform.flip(kk_img,True,False) ,
-    (0,-5):pg.transform.rotozoom(kk_img,-90,1.0) ,
+    (+5,-5):pg.transform.rotozoom(kk_img1,+45,1.0),
 
-    (+5,-5):pg.transform.flip(kk_img,True,False),
-    (+5,-5):pg.transform.rotozoom(kk_img,-135,1.0),
-
-    (+5,0):pg.transform.flip(kk_img,True,False) ,
-    #(+5,0):pg.transform.rotozoom(kk_img,0,1.0) ,
-
-    (+5,+5):pg.transform.flip(kk_img,True,False) ,
-    (+5,+5):pg.transform.rotozoom(kk_img,135,1.0) ,
+    (+5,0):(kk_img1) ,
+    
+    (+5,+5):pg.transform.rotozoom(kk_img1,-45,1.0) ,
 
     (0,+5):pg.transform.flip(kk_img,True,False) ,
     (0,+5):pg.transform.rotozoom(kk_img,90,1.0) ,
